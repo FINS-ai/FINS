@@ -2,7 +2,7 @@
 FROM python:3.9-slim
 
 # Set working directory
-WORKDIR /app
+WORKDIR /fins-backend
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
