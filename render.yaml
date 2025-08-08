@@ -4,13 +4,14 @@ services:
     env: python
     plan: free
 
-    # instala deps a partir do requirements na raiz
     buildCommand: pip install -r requirements.txt
 
-    # entra em fins-backend/app e dispara o Uvicorn
     startCommand: |
-      uvicorn --chdir fins-backend/app main:app \
-        --host 0.0.0.0 --port $PORT
+      uvicorn \
+        --app-dir fins-backend/app \
+        main:app \
+        --host 0.0.0.0 \
+        --port $PORT
 
     envVars:
       - key: PYTHON_VERSION
