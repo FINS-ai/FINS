@@ -4,8 +4,10 @@ services:
     env: python
     plan: free
 
+    # instala todas as dependências do requirements na raiz
     buildCommand: pip install -r requirements.txt
 
+    # usa --app-dir em vez de --chdir para apontar ao seu módulo
     startCommand: |
       uvicorn \
         --app-dir fins-backend/app \
@@ -16,23 +18,33 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: "3.9.16"
+
       - key: SUPABASE_URL
         sync: false
+
       - key: SUPABASE_KEY
         sync: false
+
       - key: SUPABASE_SERVICE_KEY
         sync: false
+
       - key: SECRET_KEY
         generateValue: true
+
       - key: ALGORITHM
         value: HS256
+
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
         value: "30"
+
       - key: API_V1_STR
         value: /api/v1
+
       - key: PROJECT_NAME
         value: FINS - Financial Intelligence System
+
       - key: BACKEND_CORS_ORIGINS
         value: '["https://fins-frontend.onrender.com", "http://localhost:3000"]'
+
       - key: MODEL_PATH
         value: ./models/
