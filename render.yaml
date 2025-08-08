@@ -7,13 +7,14 @@ services:
     # instala todas as dependências do requirements na raiz
     buildCommand: pip install -r requirements.txt
 
-    # usa --app-dir em vez de --chdir para apontar ao seu módulo
+    # usa gunicorn com worker uvicorn para FastAPI
     startCommand: |
-      uvicorn \
-        --app-dir fins-backend/app \
-        main:app \
-        --host 0.0.0.0 \
-        --port $PORT
+      gunicorn \
+        --chdir fins-backend \
+        app.main:app \
+        --worker-class uvicorn.workers.UvicornWorker \
+        --bind 0.0.0.0:$PORT \
+        --workers 3
 
     envVars:
       - key: PYTHON_VERSION
