@@ -3,11 +3,18 @@ services:
     name: fins-backend
     env: python
     plan: free
+
+    # instala deps a partir do requirements na raiz
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+
+    # entra em fins-backend/app e dispara o Uvicorn
+    startCommand: |
+      uvicorn --chdir fins-backend/app main:app \
+        --host 0.0.0.0 --port $PORT
+
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.16
+        value: "3.9.16"
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_KEY
@@ -19,7 +26,7 @@ services:
       - key: ALGORITHM
         value: HS256
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
-        value: 30
+        value: "30"
       - key: API_V1_STR
         value: /api/v1
       - key: PROJECT_NAME
@@ -27,4 +34,4 @@ services:
       - key: BACKEND_CORS_ORIGINS
         value: '["https://fins-frontend.onrender.com", "http://localhost:3000"]'
       - key: MODEL_PATH
-        value: ./models/ 
+        value: ./models/
